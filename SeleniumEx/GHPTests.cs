@@ -67,18 +67,20 @@ namespace SeleniumEx
         public void GmailLinkTest() 
         
         {
+            driver.Navigate().Back();
             //driver.FindElement(By.LinkText("Gmail")).Click();
-        //    driver.FindElement(By.PartialLinkText("ma")).Click();
+                driver.FindElement(By.PartialLinkText("ma")).Click();
 
-           Thread.Sleep(3000);
+            Thread.Sleep(3000);
         //    //string title=driver.Title;
-        //    //Assert.That(driver.Title.Contains("Gmail"));
-            Assert.That(driver.Url.Contains("gmail"));
+           Assert.That(driver.Title.Contains("Gmail"));
+            //Assert.That(driver.Url.Contains("gmail"));
            Console.WriteLine("Gmail link text test passed");
 
         }
         public void ImageLinkTest()
         {
+            driver.Navigate().Back();
             driver.FindElement(By.PartialLinkText("mag")).Click();
 
                 Thread.Sleep(3000);
@@ -89,12 +91,24 @@ namespace SeleniumEx
         }
         public void LocalizationTest()
         {
+            driver.Navigate().Back();
             string loc = driver.FindElement(By.XPath("/html/body/div[1]/div[6]/div[1]")).Text;
 
             Thread.Sleep(3000);
 
             Assert.That(loc.Equals("India"));
             Console.WriteLine("localization test passed");
+
+        }
+        public void GAppYoutubeTest()
+        {
+            
+            driver.FindElement(By.ClassName("gb_d")).Click();
+            Thread.Sleep(3000);
+            driver.FindElement(By.CssSelector(
+            Thread.Sleep(3000); 
+            Assert.That(driver.Title.Contains("Youtube"));
+            Console.WriteLine("Youtube test passed");
 
         }
 
