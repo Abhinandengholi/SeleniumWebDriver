@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OpenQA.Selenium.Support.UI;
 
 namespace SeleniumEx
 {
@@ -89,26 +90,29 @@ namespace SeleniumEx
         }
         public void SearchAndFilterProductByBrandTest()
         {
-            driver.FindElement(By.Id("twotabsearchtextbox")).SendKeys("mobile phones");
+            driver.FindElement(By.Id("twotabsearchtextbox")).SendKeys("mobile phones");//searching mobile phones
             Thread.Sleep(4000);
-            driver.FindElement(By.Id("nav-search-submit-button")).Click();
-            //Assert.That(("Amazon.com : mobiles".Equals(driver.Title)) && (driver.Url.Contains("mobiles")));
-            IWebElement mototcheckbox = driver.FindElement(By.XPath("//*[@id=\"p_89/Motorola\"]/span/a/div/label/i"));                           
-                //(By.XPath("//*[@id=\"p_89/Motorola\"]/span/a/div/label/input"));
-            Thread.Sleep(3000);
-            mototcheckbox.Click();
-            Thread.Sleep(3000);
-            Assert.True(mototcheckbox.Selected);
+            driver.FindElement(By.Id("nav-search-submit-button")).Click();//clcking on search button
+            driver.FindElement(By.XPath("//*[@id=\"p_89/Motorola\"]/span/a/div/label/i")).Click();
+            Assert.True(driver.FindElement(By.XPath("//*[@id=\"p_89/Motorola\"]/span/a/div/label/input")).Selected);
             Console.WriteLine("Motorola is selected successfully");
-            driver.FindElement(By.ClassName("a-expander-prompt")).Click();
-            IWebElement applecheckbox = driver.FindElement(By.XPath("//*[@id=\"p_89/Apple\"]/span/a/div/label/i"));
-            Thread.Sleep(3000); 
-            applecheckbox.Click();
-            Assert.True(applecheckbox.Selected);
+            driver.FindElement(By.ClassName("a-expander-prompt")).Click();//searching for seemore
+
+            driver.FindElement(By.XPath("//*[@id=\"p_89/Apple\"]/span/a/div/label/i")).Click();
+            Assert.True(driver.FindElement(By.XPath("//*[@id=\"p_89/Apple\"]/span/a/div/label/input")).Selected);
             Console.WriteLine("Apple is selected successfully");
         }
-    
-        public void Destruct()
+        public void SortBySelectTest()
+        {
+            IWebElement sortby = driver.FindElement(By.ClassName("a-native-dropdown.a-declarative"));
+            SelectElement sortbyselect = (SelectElement)sortby;
+            sortbyselect.SelectByValue("1");
+            Thread.Sleep(5000);
+            Console.WriteLine(sortbyselect.SelectedOption);
+        
+        }
+
+            public void Destruct()
         {
             driver.Close();
         }

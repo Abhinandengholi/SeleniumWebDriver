@@ -66,7 +66,8 @@ foreach (var d in drivers)
         //azt.ReloadHomePage();
         //azt.TodaysDealsTest();
         //azt.SignInAccListTest();
-       azt.SearchAndFilterProductByBrandTest(); 
+        //azt.SearchAndFilterProductByBrandTest(); 
+        azt.SortBySelectTest();
 
     }
     catch (AssertionException)
