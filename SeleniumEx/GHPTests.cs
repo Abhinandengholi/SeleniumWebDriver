@@ -105,7 +105,7 @@ namespace SeleniumEx
             
             driver.FindElement(By.ClassName("gb_d")).Click();
             Thread.Sleep(3000);
-            driver.FindElement(By.CssSelector(
+            //driver.FindElement(By.CssSelector(
             Thread.Sleep(3000); 
             Assert.That(driver.Title.Contains("Youtube"));
             Console.WriteLine("Youtube test passed");

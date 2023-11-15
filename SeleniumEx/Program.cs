@@ -4,7 +4,7 @@ using OpenQA.Selenium.Chrome;
 using SeleniumEx;
 
 
-GHPTests gHPTests=new GHPTests();
+//GHPTests gHPTests=new GHPTests();
 //Console.WriteLine("1.Edge 2.Chrome");
 //int ch=Convert.ToInt32(Console.ReadLine());
 //switch(ch)
@@ -14,7 +14,7 @@ GHPTests gHPTests=new GHPTests();
 //        case 2:
 //        gHPTests.InitializeChromeDriver(); break;
 //}
-List<string> drivers=new List<string>();
+/*List<string> drivers=new List<string>();
 drivers.Add("Edge");
 drivers.Add("Chrome");
 foreach (var d in drivers)
@@ -43,4 +43,40 @@ foreach (var d in drivers)
     }
 
     gHPTests.Destruct();
+}*/
+List<string> drivers = new List<string>();
+drivers.Add("Chrome");
+foreach (var d in drivers)
+{
+    AmazonTest azt = new AmazonTest();
+    switch (d)
+    {
+        case "Chrome":
+            azt.InitializeChromeDriver(); break;
+
+        //case "Edge":
+        //    azt.InitializeEdgeDriver(); break;
+
+    }
+    try
+    {
+        //azt.Titletest();
+        //azt.LogClickTest();
+        //azt.SearchProductTest();
+        //azt.ReloadHomePage();
+        //azt.TodaysDealsTest();
+        //azt.SignInAccListTest();
+       azt.SearchAndFilterProductByBrandTest(); 
+
+    }
+    catch (AssertionException)
+    {
+        Console.WriteLine("Test fail");
+    }
+    catch(NoSuchElementException nse) 
+    {
+        Console.WriteLine(nse.Message);
+    }
+    azt.Destruct();
+
 }
