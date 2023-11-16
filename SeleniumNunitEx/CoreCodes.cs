@@ -1,6 +1,7 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.DevTools.V117.Page;
+using OpenQA.Selenium.Edge;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,12 +40,18 @@ namespace SeleniumNunitEx
                 {
                     driver = new ChromeDriver();
                 }
+                else if (properties["browser"].ToLower() == "edge")
+                {
+                    driver = new EdgeDriver();
+                }
+                driver.Url = properties["baseUrl"];
+                driver.Manage().Window.Maximize();
             }
         }
         [OneTimeTearDown]   
         public void Cleanup()
         {
-
+            driver.Quit();  
         }
     }
 }
