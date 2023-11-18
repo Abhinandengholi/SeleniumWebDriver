@@ -1,10 +1,12 @@
 ﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Support.Extensions;
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.WebRequestMethods;
 
 namespace SeleniumNunitEx
 {
@@ -20,8 +22,8 @@ namespace SeleniumNunitEx
             //elements.Click();
             IWebElement cbmenu = driver.FindElement(By.XPath("//span[text()='Check Box']//parent::li"));
             cbmenu.Click();
-          List<IWebElement> expandcollapse = driver.FindElements(By.ClassName("rct-collapse rct-collapse-btn")).ToList();
-            foreach(var item in expandcollapse)
+            List<IWebElement> expandcollapse = driver.FindElements(By.ClassName("rct-collapse rct-collapse-btn")).ToList();
+            foreach (var item in expandcollapse)
             {
                 item.Click();
             }
@@ -29,6 +31,7 @@ namespace SeleniumNunitEx
             commandscheckbox.Click();
             Assert.True(driver.FindElement(By.XPath("//input[contains(@id,'commands')]")).Selected);
         }
+        [Ignore(" ")]
         [Test]
         public void TestFormElements()
         {
@@ -44,7 +47,7 @@ namespace SeleniumNunitEx
             emailField.SendKeys("mailid@gmail.com");
             Thread.Sleep(2000);
             IWebElement genderRadio = driver.FindElement(By.XPath("//input[@id='gender-radio-1']//following::label"));
-            genderRadio.Click();    
+            genderRadio.Click();
             Thread.Sleep(2000);
             IWebElement mobileNumberField = driver.FindElement(By.Id("userNumber"));
             mobileNumberField.SendKeys("12345676");
@@ -55,7 +58,7 @@ namespace SeleniumNunitEx
             Thread.Sleep(2000);
 
             IWebElement dobMonth = driver.FindElement(By.XPath("//select[@class='react-datepicker__month-select']"));
-           SelectElement selectmonth= new SelectElement(dobMonth);
+            SelectElement selectmonth = new SelectElement(dobMonth);
             selectmonth.SelectByIndex(1);
             Thread.Sleep(2000);
 
@@ -86,7 +89,69 @@ namespace SeleniumNunitEx
             Thread.Sleep(2000);
 
 
+        }
+        [Ignore("")]
+        [Test]
+        public void TestWindow()
+        {
+            driver.Url = "http://demoqa.com/browser-windows";
+            string parentWindowHandle = driver.CurrentWindowHandle;
+            Console.WriteLine("Parent window's handle->"+parentWindowHandle);
+            IWebElement clickElement = driver.FindElement(By.Id("tabButton"));
+            for(var i= 0; i < 2; i++)
+            {
+                clickElement.Click();
+                Thread.Sleep(3000);
+            }
+            List<string>lstWindow=driver.WindowHandles.ToList();
+            //string lastWindowHandle = "";
+            foreach(var handle in lstWindow)
+            {
+                Console.WriteLine("Switching to window->" + handle);
+                driver.SwitchTo().Window(handle);
+                Thread.Sleep(2000);
+                Console.WriteLine("Navigate to google.com");
+                driver.Navigate().GoToUrl("https://google.com");
+                Thread.Sleep(2000);
+                //lastWindowHandle = handle;
 
+            }
+            driver.SwitchTo().Window(parentWindowHandle);
+            driver.Quit();
+
+        }
+        [Test]
+        public void TestAlerts()
+        {
+            driver.Url = "https://demoqa.com/alerts";
+            IWebElement element = driver.FindElement(By.Id("alertButton"));
+            Thread.Sleep(3000);
+            driver.ExecuteJavaScript("arguments[0].click()", element);
+            //((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()",element);
+            IAlert simpleAlert = driver.SwitchTo().Alert();
+            string alertText = simpleAlert.Text;
+            Console.WriteLine("Alert text is"+alertText);
+            Thread.Sleep(5000);
+            simpleAlert.Accept();
+            element = driver.FindElement(By.Id("confirmButton"));
+            Thread.Sleep(5000);
+            element.Click();
+            IAlert confirmationAlert = driver.SwitchTo().Alert();
+            string alertTxt=confirmationAlert.Text;
+            Console.WriteLine("Alert is:" + alertTxt);
+            Thread.Sleep(5000);
+            confirmationAlert.Dismiss();
+
+            element = driver.FindElement(By.Id("promtButton"));
+            Thread.Sleep(5000);
+            element.Click();
+            IAlert promptAlert = driver.SwitchTo().Alert();
+
+            promptAlert.SendKeys("Accepting the alert");
+            Thread.Sleep(5000);
+            alertText = promptAlert.Text;
+            Console.WriteLine("Alert text is:" + alertTxt);
+            promptAlert.Accept();
 
         }
     }

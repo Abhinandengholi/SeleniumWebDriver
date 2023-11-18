@@ -35,8 +35,6 @@ namespace SeleniumNunitEx
         public void InitializeBrowser()
         {
             ReadConfigSettings();
-            foreach(var prop in properties)
-            {
                 if (properties["browser"].ToLower()=="chrome")
                 {
                     driver = new ChromeDriver();
@@ -47,8 +45,8 @@ namespace SeleniumNunitEx
                 }
                 driver.Url = properties["baseUrl"];
                 driver.Manage().Window.Maximize();
-            }
         }
+        
         public bool CheckLinkStatus(string url)
         {
             try
