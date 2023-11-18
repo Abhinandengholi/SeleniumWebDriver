@@ -13,12 +13,12 @@ namespace SeleniumNunitEx
     internal class CoreCodes
     {
         Dictionary<string, string>? properties;
-        IWebDriver driver;
+       public  IWebDriver driver;
         public void ReadConfigSettings() 
         {
             string currDir = Directory.GetParent(@"../../../").FullName;//getting the current directory
             properties = new Dictionary<string, string>();//declaring  the dictionary
-            string filename = currDir + "/config/config.properties";//taking the file from wworking directory
+            string filename = currDir + "/ConfigSettings/config.properties";//taking the file from wworking directory
             string[] lines = File.ReadAllLines(filename);
             foreach (string line in lines)//for getting file data even if there are whitespace
             {
@@ -34,6 +34,7 @@ namespace SeleniumNunitEx
         [OneTimeSetUp]
         public void InitializeBrowser()
         {
+            ReadConfigSettings();
             foreach(var prop in properties)
             {
                 if (properties["browser"].ToLower()=="chrome")
@@ -46,6 +47,23 @@ namespace SeleniumNunitEx
                 }
                 driver.Url = properties["baseUrl"];
                 driver.Manage().Window.Maximize();
+            }
+        }
+        public bool CheckLinkStatus(string url)
+        {
+            try
+            {
+                var request = (System.Net.HttpWebRequest)
+                    System.Net.WebRequest.Create(url);
+                request.Method = "HEAD";
+                using (var response =request.GetResponse())
+                {
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;   
             }
         }
         [OneTimeTearDown]   
