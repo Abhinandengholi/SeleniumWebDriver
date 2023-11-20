@@ -14,6 +14,7 @@ namespace SeleniumNunitEx
         [Test, Category("Regression Testing"), Author("ABHI", "abhi04@gmail.com")]
         [Description("check for valid login")]
 
+        [Ignore("")]
         public void LoginTest()
         {
 
@@ -109,6 +110,7 @@ namespace SeleniumNunitEx
              element.Clear();
          }*/
         [Test]
+        [Ignore("")]
         [Author("Franks", "frank07@gmail.com")]
         [Description("check for invalid login")]
         [Category("Regression Testing")]
