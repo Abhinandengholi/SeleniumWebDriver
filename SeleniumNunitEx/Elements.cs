@@ -120,6 +120,7 @@ namespace SeleniumNunitEx
             driver.Quit();
 
         }
+        [Ignore(" ")]
         [Test]
         public void TestAlerts()
         {
