@@ -9,12 +9,13 @@ using System.Threading.Tasks;
 
 namespace SeleniumNunitEx
 {
+    [TestFixture]
     internal class LinkedInTest : CoreCodes
     {
         [Test, Category("Regression Testing"), Author("ABHI", "abhi04@gmail.com")]
         [Description("check for valid login")]
 
-        [Ignore("")]
+       
         public void LoginTest()
         {
 
@@ -42,7 +43,7 @@ namespace SeleniumNunitEx
 
         }
 
-        /* [Test]
+        [Test]
          [Author("ABHI", "abhi04@gmail.com")]
          [Description("check for invalid login")]
          [Category("Smoke Testing")]
@@ -79,7 +80,7 @@ namespace SeleniumNunitEx
          void ClearForm(IWebElement element)
          {
              element.Clear();
-         }*/
+         }
 
         /* [Test]
          [Author("Franks", "frank07@gmail.com")]
@@ -110,7 +111,7 @@ namespace SeleniumNunitEx
              element.Clear();
          }*/
         [Test]
-        [Ignore("")]
+        
         [Author("Franks", "frank07@gmail.com")]
         [Description("check for invalid login")]
         [Category("Regression Testing")]
@@ -127,7 +128,12 @@ namespace SeleniumNunitEx
             IWebElement passwordInput = fluentWait.Until(d => d.FindElement(By.Id("session_password")));
             emailInput.SendKeys(email);
             passwordInput.SendKeys(pwd);
-            Thread.Sleep(3000);
+            TakeScreenshot();
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("arguments[0].scrollIntoView(true);", driver.FindElement(By.XPath("//button[@type='submit']")));
+            Thread.Sleep(3000); 
+            js.ExecuteScript("arguments[0].click();", driver.FindElement(By.XPath("//button[@type='submit']")));
+            
             ClearForm(emailInput);
             ClearForm(passwordInput);
 
@@ -141,10 +147,11 @@ namespace SeleniumNunitEx
             {
             return new object[]
             {
-                new object[] {"Aswd@dd","234"},
-          new object[] {"Bs12@ddd", "456" },
-         new object[] {"Cs23@ddd", "567" }
+             new object[] {"Aswd@dd","234"},
+             new object[] {"Bs12@ddd", "456" },
+             new object[] {"Cs23@ddd", "567" }
             };
         }
+      
     }
 }
