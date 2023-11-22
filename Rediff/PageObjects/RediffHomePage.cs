@@ -6,9 +6,9 @@ namespace Rediff.PageObjects
     internal class RediffHomePage
     {
         IWebDriver driver;  
-        public RediffHomePage(IWebDriver driver)
+        public RediffHomePage(IWebDriver? driver)
         {
-            this.driver = driver;
+            this.driver = driver?? throw new ArgumentException(nameof(driver));//if  the driver is null  guexception thrown
             PageFactory.InitElements(driver, this);
         }
 
@@ -21,19 +21,26 @@ namespace Rediff.PageObjects
         public IWebElement? SignInLink { get; set; }
 
         //Act
-        public void CreateAccountLinkClick()
-        {
-            CreateAccountLink?.Click();
-        }
+        //public void CreateAccountLinkClick()
+        //{
+        //    CreateAccountLink?.Click();
+        //}
        
-        public  CreateAccountPage CreateAccountClick()
+      
+        //public void SignInLinkClick()
+        //{
+        //    SignInLink?.Click();
+        //}
+        public CreateAccountPage CreateAccountClick()
         {
             CreateAccountLink?.Click();
             return new CreateAccountPage(driver);
         }
-        public void SignInLinkClick()
+
+        public SignInPage SignInLinkClick()
         {
             SignInLink?.Click();
+            return new SignInPage(driver);
         }
     }
 }

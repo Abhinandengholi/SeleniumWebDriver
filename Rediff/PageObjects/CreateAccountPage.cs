@@ -18,7 +18,7 @@ namespace Rediff.PageObjects
         }
 
         //Arrange
-        [FindsBy(How = How.XPath, Using = "//input[contains(@name,'name')]")]
+        [FindsBy(How = How.XPath, Using = "//input[contains(@name,'name898ced60')]")]
         public IWebElement? FullNameText { get; set; }
 
 
@@ -27,6 +27,9 @@ namespace Rediff.PageObjects
 
         [FindsBy(How = How.XPath, Using = "//input[contains(@name,'btnchkavaile11a4841')]")]
         public IWebElement? CheckAvailabilityBtn { get; set; }
+
+        [FindsBy(How = How.Id, Using ="Register")]
+        public IWebElement? CreateMyAccountBtn { get; set; }
         //Act
         public void TypeFullName(string fullname)
         {
@@ -39,6 +42,10 @@ namespace Rediff.PageObjects
         public void CheckAvailibilitybtn()
         {
             CheckAvailabilityBtn?.Click();
+        }
+        public void ClickCreateMyAccountbtn()
+        {
+            CreateMyAccountBtn?.Click();
         }
         public void ClearFullName()
         {
