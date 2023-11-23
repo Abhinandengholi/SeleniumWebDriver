@@ -1,5 +1,6 @@
 ﻿using AssignmentNunit.PageObjects;
 using AssignmentNunit.Utilities;
+using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,7 +33,10 @@ namespace AssignmentNunit.TestScripts
             }
             productpage.SizecheckClick();
             productpage.ClickAddCart();
-
+            string urllink = "https://www.naaptol.com/eyewear/reading-glasses-with-led-lights-lrg4/p/12612074.html";
+            Assert.AreEqual(driver.FindElement(By.XPath("//a[contains(text(),'LRG4')]")).GetAttribute("href"), urllink);
         }
+
     }
+    
 }

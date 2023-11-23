@@ -31,7 +31,6 @@ namespace AssignmentNunit.PageObjects
         public void ClickAddCart()
         {
             AddToCart?.Click();
-
         }
     }
 }
