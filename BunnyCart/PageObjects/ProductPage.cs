@@ -17,7 +17,33 @@ namespace BunnyCart.PageObjects
             PageFactory.InitElements(driver, this);
         }
         //Arrange
-        [FindsBy(How = How.XPath, Using = "")]
-        private IWebElement? FirstProductlink { get; }
+        [FindsBy(How = How.XPath, Using = "//h1[@class='page-title']")]
+        private IWebElement? productTitleLabel { get; }
+
+        [FindsBy(How = How.ClassName, Using = "qty-inc")]
+        private IWebElement? InQtyLink { get; set; }
+
+        [FindsBy(How = How.Id, Using = "product-addtocart-button")]
+        private IWebElement?    AddToCartBtn { get; set; }
+
+        //Act
+        //public string? GetProductTitleLabel()
+        //{
+        //    return productTitleLabel?.Text;
+        //}
+        public string? GetProductUrl()
+        {
+            string url = driver.Url;
+            return url;
+        }
+        public void ClickInQtyLink()
+        {
+            InQtyLink?.Click();
+
+        }
+        public void ClickAddToCartBtn()
+        {
+           AddToCartBtn?.Click();
+        }
     }
 }

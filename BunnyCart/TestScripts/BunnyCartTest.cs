@@ -25,13 +25,12 @@ namespace BunnyCart.TestScripts
                 bchp.SignUp("Abhi", "Nand", "abhi04@.com", "1234", "1234", "3243434");
             
             }
-            catch (AssertionException ex)
+            catch (AssertionException )
             {
-                Console.WriteLine("Create account modal not present");
+                Console.WriteLine("SignUp Failed");
             }
-           
-            
+ 
         }
-
+             
     }
 }

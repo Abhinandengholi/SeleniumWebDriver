@@ -18,9 +18,9 @@ namespace BunnyCart.PageObjects
             PageFactory.InitElements(driver, this);
         }
         //Arrange
-        [FindsBy(How = How.XPath, Using = "")]
+        [FindsBy(How = How.XPath, Using = "//div[@class='product-item-info type3']")]
         private IWebElement? FirstProductlink { get;}
-        public string? FirstProductLink()
+        public string? GetFirstProductLink()
         {
             return FirstProductlink?.Text;
         }

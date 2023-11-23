@@ -78,5 +78,10 @@ namespace BunnyCart
             screenshot.SaveAsFile(filepath);
             Console.WriteLine("Taken ss");
         }
+         public static void ScrollIntoView(IWebDriver driver, IWebElement element)
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("arguments[0].scrollIntoView(true);", element);
+        }
     }
 }
