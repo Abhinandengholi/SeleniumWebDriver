@@ -1,4 +1,6 @@
-﻿using OpenQA.Selenium;
+﻿using AventStack.ExtentReports.Reporter;
+using AventStack.ExtentReports;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.DevTools.V117.Page;
 using OpenQA.Selenium.Edge;
@@ -14,6 +16,9 @@ namespace BunnyCart
     {
         Dictionary<string, string>? properties;
        public  IWebDriver driver;
+        public ExtentReports extent;
+        ExtentSparkReporter sparkReporter;
+        public ExtentTest test;
         public void ReadConfigSettings() 
         {
             string currDir = Directory.GetParent(@"../../../").FullName;//getting the current directory
@@ -34,6 +39,13 @@ namespace BunnyCart
         [OneTimeSetUp]
         public void InitializeBrowser()
         {
+            string currDir = Directory.GetParent(@"../../../").FullName;
+            extent = new ExtentReports();
+            sparkReporter = new ExtentSparkReporter(currDir + "/ExtentReports/extent-report"
+                + DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".html");
+
+            extent.AttachReporter(sparkReporter);
+
             ReadConfigSettings();
                 if (properties["browser"].ToLower()=="chrome")
                 {
@@ -67,6 +79,7 @@ namespace BunnyCart
         [OneTimeTearDown]   
         public void Cleanup()
         {
+            extent.Flush();
             driver.Quit();  
         }
         public void TakeScreenshot()
